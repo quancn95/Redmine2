@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  ng-app="myRedmineHome">
 <head>
     <meta charset="UTF-8">
     <title>Adminitrator Default Page</title>
     <link href="css/app/app.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
 </head>
-<body ng-app="myRedmineHome">
-<div class="loading-data" ng-show="isLoading"> Loading ...</div>
-<div class="container" ng-controller="homeController">
+<body ng-controller="homeController">
+<div class="wrapper">
+<div class="loading-data" ng-show="isLoading"><h3 class="loading-text">Loading . . .</h3> </div>
+<div class="container">
     <div class="row redmine-input">
         <div class="col-md-3">
             <input type="number" ng-model="sprint" min="1" ng-change="deleteTextStatus()">
@@ -97,6 +98,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 </body>
 
