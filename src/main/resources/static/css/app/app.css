@@ -11,7 +11,8 @@ body{
     padding-top: 5em;
 }
 .redmine-input{
-    height: 5em;
+    height: 7em;
+    border-bottom: 1px #000 solid;
 }
 .redmine-grid{
     padding-top: 1em;
@@ -30,6 +31,8 @@ body{
     font-size: 5em;
     margin-top: 400px;
 }
+tbody tr:nth-child(odd) {background-color: #f2f2f2;}
+
 
 
 

@@ -59,7 +59,7 @@ public class RedmineAPIUtils {
         List<Issue> issueList = new ArrayList<>();
         //http://apis.ifisolution.local:8080/issues.json?project_id=187&fixed_version_id=1326
         for (Version version : versionList) {
-            String path = "issues.json?project_id=" + version.getProjectId() + "&fixed_version_id=" + version.getVersionId() + "&status_id=*";
+            String path = "issues.json?project_id=" + version.getProjectId() + "&limit=100&fixed_version_id=" + version.getVersionId() + "&status_id=*";
             String js = getJSONFromRedmine(path);
             JsonObject jsonObject = new JsonParser().parse(js).getAsJsonObject();
             JsonArray issueArray = (JsonArray) jsonObject.get("issues");

@@ -60,7 +60,8 @@ app.controller("homeController", function ($scope, $http) {
     function countRedmine(dataRedmine) {
         $scope.deleteTextStatus();
         angular.forEach(dataRedmine, function (value, key) {
-            if(value.tracker == 'Bug'){
+            if(value.tracker === 'Bug'){
+                console.log(value.issueId)
                 if (value.priority) {
                     if (value.priority === "Low") {
                         $scope.low++;
