@@ -58,40 +58,44 @@ app.controller("homeController", function ($scope, $http) {
     }
 
     function countRedmine(dataRedmine) {
+        $scope.deleteTextStatus();
         angular.forEach(dataRedmine, function (value, key) {
-            if (value.priority) {
-                if (value.priority === "Low") {
-                    $scope.low++;
+            if(value.tracker == 'Bug'){
+                if (value.priority) {
+                    if (value.priority === "Low") {
+                        $scope.low++;
+                    }
+                    else if (value.priority === "Normal") {
+                        $scope.normal++;
+                    }
+                    else if (value.priority === "High") {
+                        $scope.high++;
+                    }
+                    else if (value.priority === "Urgent") {
+                        $scope.urgent++;
+                    }
+                    else if (value.priority === "Immediate") {
+                        $scope.immediate++;
+                    }
                 }
-                else if (value.priority === "Normal") {
-                    $scope.normal++;
-                }
-                else if (value.priority === "High") {
-                    $scope.high++;
-                }
-                else if (value.priority === "Urgent") {
-                    $scope.urgent++;
-                }
-                else if (value.priority === "Immediate") {
-                    $scope.immediate++;
+                if (value.status) {
+                    if (value.status === "Closed")
+                        $scope.closed++;
+                    if (value.status === "New")
+                        $scope.new++;
+                    if (value.status === "Inprogress")
+                        $scope.inprogress++;
+                    if (value.status === "Resolved")
+                        $scope.resolved++;
+                    if (value.status === "Feedback")
+                        $scope.feedback++;
+                    if (value.status === "Rejected")
+                        $scope.rejected++;
+                    if (value.status === "Cancelled")
+                        $scope.cancelled++;
                 }
             }
-            if (value.status) {
-                if (value.status === "Closed")
-                    $scope.closed++;
-                if (value.status === "New")
-                    $scope.new++;
-                if (value.status === "Inprogress")
-                    $scope.inprogress++;
-                if (value.status === "Resolved")
-                    $scope.resolved++;
-                if (value.status === "Feedback")
-                    $scope.feedback++;
-                if (value.status === "Rejected")
-                    $scope.rejected++;
-                if (value.status === "Cancelled")
-                    $scope.cancelled++;
-            }
+
 
         })
     }
