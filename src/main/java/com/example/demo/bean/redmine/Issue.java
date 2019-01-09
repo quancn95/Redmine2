@@ -6,6 +6,8 @@ public class Issue {
     private String priority;
     private String tracker;
 
+    private String assigned_to;
+
     public String getStatus() {
         return status;
     }
@@ -36,5 +38,13 @@ public class Issue {
 
     public void setIssueId(int issueId) {
         this.issueId = issueId;
+    }
+
+    public String getAssigned_to() {
+        return assigned_to;
+    }
+
+    public void setAssigned_to(String assigned_to) {
+        this.assigned_to = assigned_to;
     }
 }

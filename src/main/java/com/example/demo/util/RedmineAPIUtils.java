@@ -75,6 +75,7 @@ public class RedmineAPIUtils {
                 issue.setStatus(status);
                 issue.setPriority(priority);
                 issue.setIssueId(Integer.parseInt(id));
+                issue.setAssigned_to(JsonUtils.getChildOfJson(issueObj, "assigned_to", "name"));
                 issueList.add(issue);
             }
         }
