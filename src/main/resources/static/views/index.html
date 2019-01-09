@@ -31,8 +31,8 @@
                     <th>Number of defects</th>
                 </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody ng-bind-html="bindHtmlPriority">
+                    <!--<tr>
                         <td>New</td>
                         <td>{{new}}</td>
                     </tr>
@@ -59,7 +59,7 @@
                     <tr>
                         <td>Cancelled</td>
                         <td>{{cancelled}}</td>
-                    </tr>
+                    </tr>-->
                 </tbody>
             </table>
         </div>
@@ -73,7 +73,8 @@
                     <th>Number of defects</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody ng-bind-html="bindHtmlStatus"></tbody>
+                <!--<tbody>
                 <tr>
                     <td>Low</td>
                     <td>{{low}}</td>
@@ -95,7 +96,7 @@
                     <td>{{immediate}}</td>
                 </tr>
 
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>

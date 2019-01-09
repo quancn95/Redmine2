@@ -3,7 +3,7 @@
  */
 
 var app = angular.module("myRedmineHome", ['ui.bootstrap']);
-app.controller("homeController", function ($scope, $http) {
+app.controller("homeController", function ($scope, $http, $sce) {
     $scope.home = "This is the homepage";
     $scope.sprint = -1;
     $scope.status = "";
@@ -40,10 +40,50 @@ app.controller("homeController", function ($scope, $http) {
         $scope.immediate = 0;
     }
 
+    app.directive('writeDataTable', function () {
+        return{
+            restrict: E,
+            template: '<tbody ng-bind-html="bindHtml"> </tbody>'
+        };
+    })
+
     function getDataRedmine(sprint) {
-        $http.get("getAllIssue?sprint=" + sprint)
+        $http.get("/redmine-counter/getAllIssue?sprint=" + sprint)
             .then(function successCallback(response) {
-                if (response.data && response.data.length > 0) {
+                if (response.data) {
+                    $scope.listData = angular.copy(response.data);
+                    setDataRedmine($scope.listData);
+                    $scope.isLoading = false;
+                } else {
+                    alert("No data found")
+                    $scope.status = "Data not found";
+                    $scope.isLoading = false;
+                }
+            }, function errorCallback(response) {
+                console.log("Unable to perform get request");
+            });
+    }
+    function setDataRedmine(dataRedmine) {
+        if(dataRedmine.ByPriority) {
+            var str = ''
+            Object.keys(dataRedmine.ByPriority).forEach(function (key) {
+               str += '<tr><td>'+key+'</td><td>'+dataRedmine.ByPriority[key]+'</td></tr>'
+            });
+            $scope.bindHtmlPriority = $sce.trustAsHtml(str)
+        }
+        if(dataRedmine.ByStatus){
+            var str = ''
+            Object.keys(dataRedmine.ByStatus).forEach(function (key) {
+                str += '<tr><td>'+key+'</td><td>'+dataRedmine.ByStatus[key]+'</td></tr>'
+            });
+            $scope.bindHtmlStatus = $sce.trustAsHtml(str)
+        }
+    }
+
+    function getDataRedmine1(sprint) {
+        $http.get("/redmine-counter/getAllIssue1?sprint=" + sprint)
+            .then(function successCallback(response) {
+                if (response.data) {
                     $scope.listData = angular.copy(response.data);
                     countRedmine($scope.listData);
                     $scope.isLoading = false;
@@ -104,6 +144,7 @@ app.controller("homeController", function ($scope, $http) {
     $scope.getRedmineBySprint = function () {
         $scope.isLoading = true;
         getDataRedmine($scope.sprint);
+
     }
 });
 
