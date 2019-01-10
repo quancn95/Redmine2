@@ -24,12 +24,15 @@ body{
     opacity: 0.65;
     z-index: 1000;
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .loading-text{
-    text-align: center;
+    /*text-align: center;*/
     color: #fff;
     font-size: 5em;
-    margin-top: 400px;
+    /*margin-top: 400px;*/
 }
 tbody tr:nth-child(odd) {background-color: #f2f2f2;}
 

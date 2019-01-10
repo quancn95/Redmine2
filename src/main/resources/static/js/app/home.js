@@ -50,7 +50,7 @@ app.controller("homeController", function ($scope, $http, $sce) {
     function getDataRedmine(sprint) {
         $http.get("/redmine-counter/getAllIssue?sprint=" + sprint)
             .then(function successCallback(response) {
-                if (response.data) {
+                if (!response.data.NotFound) {
                     $scope.listData = angular.copy(response.data);
                     setDataRedmine($scope.listData);
                     $scope.isLoading = false;

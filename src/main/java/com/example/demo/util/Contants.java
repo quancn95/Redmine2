@@ -20,5 +20,7 @@ public class Contants {
         public static final String IMMEDIATE = "Immediate";
 
         public static final String BUG = "Bug";
+
+        public static final String NOTFOUND = "Not Found";
     }
 }

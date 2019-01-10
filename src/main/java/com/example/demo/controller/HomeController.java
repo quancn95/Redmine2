@@ -43,11 +43,20 @@ public class HomeController {
     @RequestMapping(value = "/getAllIssue", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
     public Map<String,Map> getRedmineIssues(@RequestParam int sprint) {
         ObjectMapper mapper = new ObjectMapper();
+        Map<String,Map> issuesResponse = new HashMap<>();
         int low, normal,high,urgent,immediate;
         int closed,newst,inprogress,resolved,feedback,rejected,cancelled;
         low = normal = high = urgent = immediate = closed = newst = inprogress = resolved = feedback = rejected = cancelled = 0;
 
-        List<Issue> listIssues = RedmineAPIUtils.getAllIssue(sprint);
+        List<Issue> listIssues = null;
+        try {
+            listIssues = RedmineAPIUtils.getAllIssue(sprint);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Map<String,Integer> priorityIssue = new HashMap<>();
+        Map<String,Integer> statusIssue = new HashMap<>();
+        Map<String,Integer> noIssue = new HashMap<>();
         if(listIssues!=null){
             for(Issue i : listIssues){
                 if(i.getTracker()!=null && i.getTracker().equals(Contants.RedmineIssues.BUG)){
@@ -86,32 +95,42 @@ public class HomeController {
                     }
                 }
             }
-        }
-        Map<String,Integer> priorityIssue = new HashMap<>();
-        priorityIssue.put(Contants.RedmineIssues.LOW, low);
-        priorityIssue.put(Contants.RedmineIssues.NORMAL, normal);
-        priorityIssue.put(Contants.RedmineIssues.HIGH, high);
-        priorityIssue.put(Contants.RedmineIssues.URGENT, urgent);
-        priorityIssue.put(Contants.RedmineIssues.IMMEDIATE, immediate);
+            // set map priority
+            priorityIssue.put(Contants.RedmineIssues.LOW, low);
+            priorityIssue.put(Contants.RedmineIssues.NORMAL, normal);
+            priorityIssue.put(Contants.RedmineIssues.HIGH, high);
+            priorityIssue.put(Contants.RedmineIssues.URGENT, urgent);
+            priorityIssue.put(Contants.RedmineIssues.IMMEDIATE, immediate);
 
-        Map<String,Integer> statusIssue = new HashMap<>();
-        statusIssue.put(Contants.RedmineIssues.CLOSED, closed);
-        statusIssue.put(Contants.RedmineIssues.NEW, newst);
-        statusIssue.put(Contants.RedmineIssues.INPROGRESS, inprogress);
-        statusIssue.put(Contants.RedmineIssues.RESOLVED, resolved);
-        statusIssue.put(Contants.RedmineIssues.FEEDBACK, feedback);
-        statusIssue.put(Contants.RedmineIssues.REJECTED, rejected);
-        statusIssue.put(Contants.RedmineIssues.CANCELLED, cancelled);
+            //set map status
+            statusIssue.put(Contants.RedmineIssues.CLOSED, closed);
+            statusIssue.put(Contants.RedmineIssues.NEW, newst);
+            statusIssue.put(Contants.RedmineIssues.INPROGRESS, inprogress);
+            statusIssue.put(Contants.RedmineIssues.RESOLVED, resolved);
+            statusIssue.put(Contants.RedmineIssues.FEEDBACK, feedback);
+            statusIssue.put(Contants.RedmineIssues.REJECTED, rejected);
+            statusIssue.put(Contants.RedmineIssues.CANCELLED, cancelled);
 
-        Map<String,Map> issuesResponse = new HashMap<>();
-        try {
-            String priority = mapper.writeValueAsString(priorityIssue);
-            String status = mapper.writeValueAsString(statusIssue);
-            issuesResponse.put("ByPriority", priorityIssue);
-            issuesResponse.put("ByStatus", statusIssue);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            //set map response
+            try {
+                String priority = mapper.writeValueAsString(priorityIssue);
+                String status = mapper.writeValueAsString(statusIssue);
+                issuesResponse.put("ByPriority", priorityIssue);
+                issuesResponse.put("ByStatus", statusIssue);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }else{
+            // set map not found issue
+            noIssue.put(Contants.RedmineIssues.NOTFOUND,0);
+            //set map response
+            try {
+                issuesResponse.put("NotFound", noIssue);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return issuesResponse;
     }
 }
