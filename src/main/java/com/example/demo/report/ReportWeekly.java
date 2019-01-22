@@ -11,12 +11,12 @@ public class ReportWeekly {
         //Redmine
 
         // Ngay bat dau Sprint
-        String sprint_start_date = "2018-12-17";
+        String sprint_start_date = "2019-01-07";
 
         // Ngay ket thuc Sprint
-        String sprint_end_date = "2019-01-04";
+        String sprint_end_date = "2019-01-18";
 //        RedmineUtils.getRedmine(sprint_start_date,sprint_end_date);
-        int sprintNumber = 21;
+        int sprintNumber = 22;
 
         getRedmineReport(sprintNumber);
         JiraUtils.getWeeklyReport(sprintNumber);

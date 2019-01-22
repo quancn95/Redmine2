@@ -53,11 +53,11 @@ public class JiraUtils {
         String username = "nd.long";
         String password = "Ifi@2018";
 
-
-        String energyName = "Energy Sprint " + sprintNumber;
-        String analysisName = "Analysis Sprint " + sprintNumber;
-        String adminName = "Admin Sprint " + sprintNumber;
-        String financialName = "Financial Sprint " + sprintNumber;
+        String technical = "Technical ";
+        String energyName = technical+"Energy Sprint " + sprintNumber;
+        String analysisName = technical+"Analysis Sprint " + sprintNumber;
+        String adminName = technical+"Admin Sprint " + sprintNumber;
+        String financialName = technical+"Financial Sprint " + sprintNumber;
 
         int kuritaSprintNumber = sprintNumber - 11;
         String kuritaName = "Migration Kurita Sprint " + kuritaSprintNumber;

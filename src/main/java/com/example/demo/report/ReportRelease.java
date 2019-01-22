@@ -8,7 +8,7 @@ import java.util.List;
 public class ReportRelease {
     public static void main(String[] args) throws Exception {
         //Redmine
-        List<Story> storyList = JiraUtils.getJira(21);
+        List<Story> storyList = JiraUtils.getJira(22);
         // List OF Upgrade, Task, Support,
         System.out.println("-------TOTAL:----------"+storyList.size());
         System.out.println("-------TASK/BUG/SUPPORT----------");
